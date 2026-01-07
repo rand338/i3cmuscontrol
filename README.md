@@ -24,9 +24,6 @@ Lightweight Python blocklets for i3blocks to control **cmus** via three clickabl
    nano ~/.config/i3blocks/scripts/cmus_control.py
    chmod +x ~/.config/i3blocks/scripts/cmus_control.py
 
-    Add the following to your i3blocks configuration (~/.config/i3blocks/config):
-
-
 # Add the following to your i3blocks configuration (~/.config/i3blocks/config):
 [cmus-prev]
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py prev
