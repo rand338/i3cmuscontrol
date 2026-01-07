@@ -38,9 +38,16 @@ interval=5
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py next
 interval=0
 ```
-Ensure the font is defined in ~/.config/i3/config (Example):
 
-3. Reload or restart i3 (e.g., Mod+Shift+R).
+3. Ensure the font is defined in ~/.config/i3/config (Example):
+```bash
+bar {
+    font pango:DejaVu Sans Mono 10, FontAwesome 10
+    status_command i3blocks
+}
+```
+
+4. Reload or restart i3 (e.g., Mod+Shift+R).
 
 # Usage & Notes
 
