@@ -1,6 +1,6 @@
 # i3blocks-cmus-controls
 
-Lightweight Python blocklets for i3blocks to control **cmus** via three clickable buttons in your i3bar (Previous, Play/Pause Toggle, Next) – including a dynamic play/pause icon. [conversation_history:1]
+Lightweight Python blocklets for i3blocks to control **cmus** via three clickable buttons in your i3bar (Previous, Play/Pause Toggle, Next) – including a dynamic play/pause icon.
 
 ## Features
 
