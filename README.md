@@ -19,12 +19,13 @@ Lightweight Python blocklets for i3blocks to control **cmus** via three clickabl
 ## Installation
 
 1. Save the script and make it executable:
-   ```bash
+```bash
    mkdir -p ~/.config/i3blocks/scripts
    nano ~/.config/i3blocks/scripts/cmus_control.py
    chmod +x ~/.config/i3blocks/scripts/cmus_control.py
-
-# Add the following to your i3blocks configuration (~/.config/i3blocks/config):
+```
+2. Add the following to your i3blocks configuration (~/.config/i3blocks/config):
+```bash
 [cmus-prev]
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py prev
 interval=0
@@ -36,10 +37,10 @@ interval=5
 [cmus-next]
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py next
 interval=0
-
+```
 Ensure the font is defined in ~/.config/i3/config (Example):
 
-- Reload or restart i3 (e.g., Mod+Shift+R).
+3. Reload or restart i3 (e.g., Mod+Shift+R).
 
 # Usage & Notes
 
