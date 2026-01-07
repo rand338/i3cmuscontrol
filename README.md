@@ -21,22 +21,29 @@ Lightweight Python blocklets for i3blocks to control **cmus** via three clickabl
 1. Save the script and make it executable:
 ```bash
    mkdir -p ~/.config/i3blocks/scripts
-   nano ~/.config/i3blocks/scripts/cmus_control.py
+   cd ~/.config/i3blocks/scripts
+   wget https://raw.githubusercontent.com/rand338/i3cmuscontrol/refs/heads/main/cmus_control.py
    chmod +x ~/.config/i3blocks/scripts/cmus_control.py
 ```
 2. Add the following to your i3blocks configuration (~/.config/i3blocks/config):
 ```bash
+[cmus]
+command=~/.config/i3blocks/blocks/scroll $BLOCK_NAME
+label=
+markup=pango
+interval=repeat
+
 [cmus-prev]
+full_text=⏮
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py prev
 interval=0
+signal=10
 
 [cmus-toggle]
+full_text=▶
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py toggle
 interval=5
-
-[cmus-next]
-command=python3 ~/.config/i3blocks/scripts/cmus_control.py next
-interval=0
+signal=10
 ```
 
 3. Ensure the font is defined in ~/.config/i3/config (Example):
