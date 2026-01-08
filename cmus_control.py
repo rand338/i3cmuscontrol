@@ -3,36 +3,54 @@ import sys
 import subprocess
 import os
 
-# Konfiguration der Icons
-ICON_PREV  = "\uf048"  #  (fa-step-backward)
-ICON_NEXT  = "\uf051"  #  (fa-step-forward)
-ICON_PLAY  = "\uf04b"  #  (fa-play)
-ICON_PAUSE = "\uf04c"  #  (fa-pause)
-ICON_STOP  = "\uf04d"  #  (fa-stop)
 
-def get_cmus_status():
-    """Prüft, ob cmus läuft und gibt den Status zurück."""
+# --- CONFIGURATION ---
+# Icons (Font Awesome)
+ICON_PREV    = "\uf048"  # 
+ICON_NEXT    = "\uf051"  # 
+ICON_PLAY    = "\uf04b"  # 
+ICON_PAUSE   = "\uf04c"  # 
+ICON_SHUFFLE = "\uf074"  #  (fa-random / fa-shuffle)
+
+
+# Colors (Optional)
+COLOR_ACTIVE = "#00FF00" # Green when shuffle is on
+COLOR_DEFAULT = ""       # Use default bar color
+
+
+def get_cmus_info():
+    """Reads status and settings from cmus."""
+    info = {
+        "status": "stopped",
+        "shuffle": False
+    }
     try:
         output = subprocess.check_output(["cmus-remote", "-Q"], stderr=subprocess.DEVNULL)
         output = output.decode("utf-8")
         
+        # Parse status
         if "status playing" in output:
-            return "playing"
+            info["status"] = "playing"
         elif "status paused" in output:
-            return "paused"
-        elif "status stopped" in output:
-            return "stopped"
-        return "unknown"
+            info["status"] = "paused"
+            
+        # Parse shuffle (can be 'true', 'tracks', or 'albums')
+        if "set shuffle true" in output or "set shuffle tracks" in output or "set shuffle albums" in output:
+            info["shuffle"] = True
+            
     except (subprocess.CalledProcessError, FileNotFoundError):
-        return "not_running"
+        info["status"] = "not_running"
+        
+    return info
+
 
 def run_cmus_command(cmd_arg):
-    """Führt cmus-remote Befehle aus."""
     cmd_map = {
-        "next": ["-n"],
-        "prev": ["-r"],
-        "toggle": ["-u"],
-        "stop": ["-s"]
+        "next":    ["-n"],
+        "prev":    ["-r"],
+        "toggle":  ["-u"],
+        "shuffle": ["-S"], # Toggle shuffle
+        "stop":    ["-s"]
     }
     
     if cmd_arg in cmd_map:
@@ -41,34 +59,41 @@ def run_cmus_command(cmd_arg):
         except Exception:
             pass
 
+
 def main():
     button_type = sys.argv[1] if len(sys.argv) > 1 else "status"
-
-    # --- WICHTIGE ÄNDERUNG ---
-    # Wir lesen BLOCK_BUTTON aus. Wenn das Skript durch das Intervall aufgerufen wird,
-    # ist diese Variable meist leer ("") oder gar nicht gesetzt.
-    # Wir führen den Befehl NUR aus, wenn es explizit "1" (Links), "2" (Mitte) oder "3" (Rechts) ist.
     block_button = os.environ.get("BLOCK_BUTTON", "")
-    
-    # Prüfen, ob es wirklich ein Mausklick war (Button 1-3 sind üblich)
+
+
+    # Execute command on click
     if block_button in ["1", "2", "3"]:
-        if button_type in ["next", "prev", "toggle"]:
+        if button_type in ["next", "prev", "toggle", "shuffle"]:
             run_cmus_command(button_type)
 
-    # --- STATUS AUSGABE ---
-    # Dieser Teil läuft IMMER, um das richtige Icon anzuzeigen
-    status = get_cmus_status()
+
+    # Get status
+    info = get_cmus_info()
     
+    # Generate output
     if button_type == "prev":
         print(ICON_PREV)
+        
     elif button_type == "next":
         print(ICON_NEXT)
+        
     elif button_type == "toggle":
-        if status == "playing":
+        if info["status"] == "playing":
             print(ICON_PAUSE)
         else:
             print(ICON_PLAY)
+            
+    elif button_type == "shuffle":
+        print(ICON_SHUFFLE)     # Line 1: Full Text
+        print(ICON_SHUFFLE)     # Line 2: Short Text
+        # Line 3: Color (Only print if active)
+        if info["shuffle"]:
+            print(COLOR_ACTIVE)
+
 
 if __name__ == "__main__":
     main()
-
