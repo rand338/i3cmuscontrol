@@ -44,6 +44,18 @@ full_text=▶
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py toggle
 interval=5
 signal=10
+
+[cmus-shuffle]
+command=python3 ~/.config/i3blocks/scripts/cmus_control.py shuffle
+interval=5
+#Optional: Farbe für inaktiven Zustand (falls gewünscht)
+color=#888888
+
+[cmus-next]
+full_text=⏭
+command=python3 ~/.config/i3blocks/scripts/cmus_control.py next
+interval=0
+signal=10
 ```
 
 3. Ensure the font is defined in ~/.config/i3/config (Example):
