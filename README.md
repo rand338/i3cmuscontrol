@@ -27,12 +27,6 @@ Lightweight Python blocklets for i3blocks to control **cmus** via three clickabl
 ```
 2. Add the following to your i3blocks configuration (~/.config/i3blocks/config):
 ```bash
-[cmus]
-command=~/.config/i3blocks/blocks/scroll $BLOCK_NAME
-label=
-markup=pango
-interval=repeat
-
 [cmus-prev]
 full_text=⏮
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py prev
