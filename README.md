@@ -48,7 +48,7 @@ signal=10
 [cmus-shuffle]
 command=python3 ~/.config/i3blocks/scripts/cmus_control.py shuffle
 interval=5
-#Optional: Farbe für inaktiven Zustand (falls gewünscht)
+#Optional: color for inactive status (if wanted)
 color=#888888
 
 [cmus-next]
